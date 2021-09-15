@@ -1,0 +1,10 @@
+###
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+"email":"jose.francisco.campo.campo@gmail.com",
+"contrasena":"Jose1234"
+}
+
+###
