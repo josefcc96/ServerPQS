@@ -26,4 +26,4 @@ vacunasDef.forEach((vacuna) => VacunasModel.findOne({ tipo: vacuna })
         }
     }));
 
-module.exports = VacunasModel;
+module.exports = {VacunasModel,vacunasSchema};

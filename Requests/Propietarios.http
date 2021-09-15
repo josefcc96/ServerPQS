@@ -1,33 +1,35 @@
 ####
-GET  http://localhost:3000/propietarios/
+GET  http://localhost:3001/propietarios/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impvc2UuZnJhbmNpc2NvLmNhbXBvLmNhbXBvQGdtYWlsLmNvbSIsImlhdCI6MTYzMTY4OTc5N30.1Uo69s9ISYae5GixfYOhb2sXSRCT_dMjT9Op6XX6SZo
 
 ####
-POST  http://localhost:3000/propietarios/
+POST  http://localhost:3001/propietarios/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impvc2UuZnJhbmNpc2NvLmNhbXBvLmNhbXBvQGdtYWlsLmNvbSIsImlhdCI6MTYzMTY4OTc5N30.1Uo69s9ISYae5GixfYOhb2sXSRCT_dMjT9Op6XX6SZo
 Content-Type: application/json
 
 {
     "nombre": "Jose Campo",
     "direccion":"Algun lugar del mundo",
-    "email": "mayratorres6@algo.com",
+    "email": "jose@algo.com",
     "telefono": 4323213,
     "cedula": 1082031354
 }
 
 
 ####
-GET  http://localhost:3000/propietarios/6141eab81ecbf9b12763d907
+GET  http://localhost:3001/propietarios/61425021c3ca4f5c8183901e
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impvc2UuZnJhbmNpc2NvLmNhbXBvLmNhbXBvQGdtYWlsLmNvbSIsImlhdCI6MTYzMTY4OTc5N30.1Uo69s9ISYae5GixfYOhb2sXSRCT_dMjT9Op6XX6SZo
 
+
 ####
-PUT  http://localhost:3000/propietarios/6141eab81ecbf9b12763d907
+PUT  http://localhost:3001/propietarios/61425021c3ca4f5c8183901e
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impvc2UuZnJhbmNpc2NvLmNhbXBvLmNhbXBvQGdtYWlsLmNvbSIsImlhdCI6MTYzMTY4OTc5N30.1Uo69s9ISYae5GixfYOhb2sXSRCT_dMjT9Op6XX6SZo
 Content-Type: application/json
 
 {
-    "nombre": "P65gdfg16O",
-    "direccion":"123456asdasd45646",
+    "nombre": "Jose F Campo",
+    "direccion":"probando",
+    "email":"jose.francisco.campo.campo@gmail.com",
     "telefono": 154,
     "cedula": 10
 }

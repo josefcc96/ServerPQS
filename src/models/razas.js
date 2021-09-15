@@ -28,4 +28,4 @@ RazasD.forEach((raza) => RazasModel.findOne({ nombre: raza })
         }
     }));
 
-module.exports = RazasModel;
+module.exports = {RazasModel,razasSchema};

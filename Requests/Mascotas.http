@@ -1,38 +1,38 @@
 
-GET  http://localhost:3000/mascotas/
+GET  http://localhost:3001/mascotas/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impvc2UuZnJhbmNpc2NvLmNhbXBvLmNhbXBvQGdtYWlsLmNvbSIsImlhdCI6MTYzMTY4OTc5N30.1Uo69s9ISYae5GixfYOhb2sXSRCT_dMjT9Op6XX6SZo
 
 ####
-POST  http://localhost:3000/mascotas/
+POST  http://localhost:3001/mascotas/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impvc2UuZnJhbmNpc2NvLmNhbXBvLmNhbXBvQGdtYWlsLmNvbSIsImlhdCI6MTYzMTY4OTc5N30.1Uo69s9ISYae5GixfYOhb2sXSRCT_dMjT9Op6XX6SZo
 Content-Type: application/json
 
 {
-    "nombre": "TUT87iyuikjgh11",
+    "nombre": "Firiuhiuhiuh3",
     "raza": "61419a6c7377560ccb50cf78",
     "fnacimiento": "2021-09-15T07:02:04.344Z",
-    "comportamiento": "61419a6c7377560ccb50cf88",
+    "comportamiento": "614244c8ab76a0faab396857",
     "vacunas":[
       {
-          "id":"61419a6c7377560ccb50cf6e",
+          "id":"61419a6c7377560ccb50cf70",
           "fechaAplicacion": "2021-08-15T07:02:04.344Z"
       }
     ]
     ,
     "caracFisicas": "pelo negro y liso",
     "fechaDespa":"2021-09-15T07:02:04.344Z",
-    "propietario":"6141eab81ecbf9b12763d907"
+    "propietario":"61425021c3ca4f5c8183901e"
 }
 
 ####
-GET  http://localhost:3000/mascotas/61420336c38f86013b473acf
+GET  http://localhost:3001/mascotas/61424912d35e04767751f836
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impvc2UuZnJhbmNpc2NvLmNhbXBvLmNhbXBvQGdtYWlsLmNvbSIsImlhdCI6MTYzMTY4OTc5N30.1Uo69s9ISYae5GixfYOhb2sXSRCT_dMjT9Op6XX6SZo
 
 ####
-PUT  http://localhost:3000/mascotas/61420336c38f86013b473acf
+PUT  http://localhost:3001/mascotas/61424912d35e04767751f836
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impvc2UuZnJhbmNpc2NvLmNhbXBvLmNhbXBvQGdtYWlsLmNvbSIsImlhdCI6MTYzMTY4OTc5N30.1Uo69s9ISYae5GixfYOhb2sXSRCT_dMjT9Op6XX6SZo
 Content-Type: application/json
 
 {
-    "nombre": "asdasdasdasd123123123"
+    "nombre": "Probandooo"
 }

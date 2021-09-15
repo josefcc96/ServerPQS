@@ -24,4 +24,4 @@ ComportamientosD.forEach((comportamiento) => ComportamientoModel.findOne({ compo
         }
     }));
 
-module.exports = ComportamientoModel;
+module.exports = {ComportamientoModel,comportamientoSchema};

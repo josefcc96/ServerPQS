@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-// const Mascotas = require('./mascotas');
+const {mascotasSchema} = require('./mascotas');
 
 const propietariosSchema = new mongoose.Schema({
     nombre: {
@@ -24,7 +24,7 @@ const propietariosSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
-    mascotas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Mascotas' }],
+    mascotas: [mascotasSchema],
 },
 { timestamps: true });
 
