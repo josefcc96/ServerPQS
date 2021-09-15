@@ -1,0 +1,28 @@
+{
+  "name": "pruebapqs",
+  "version": "0.0.1",
+  "description": "Prueba Tecnica PQS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josefcc96/PruebaPQS.git"
+  },
+  "keywords": [
+    "MERN"
+  ],
+  "author": "JoseCampo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josefcc96/PruebaPQS/issues"
+  },
+  "homepage": "https://github.com/josefcc96/PruebaPQS#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.5",
+    "nodemon": "^2.0.12"
+  }
+}
