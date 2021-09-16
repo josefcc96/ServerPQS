@@ -2,7 +2,7 @@ const swaggerOptions = {
     definition: {
         openapi: '3.0.0',
         info: {
-            title: 'Veterinaria PQS',
+            title: 'Guarderia PQS',
             version: '1.0.0',
             description: 'Prueba Tecnica PQS',
         },

@@ -8,7 +8,7 @@ const expressJwt = require('express-jwt');
 const propietarioValidation = require('./schemas/propietarioSchema');
 const loginSchema = require('./schemas/loginSchema');
 const Usuarios = require('./models/usuarios');
-const Propietarios = require('./models/propietarios');
+const {PropietariosModel} = require('./models/propietarios');
 const {MascotasModel} = require('./models/mascotas');
 const {VacunasModel} = require('./models/vacunas');
 const {RazasModel} = require('./models/razas');
@@ -51,10 +51,11 @@ app.post('/login', async (req, res) => {
         } = await Usuarios.findOne({ email });
         const resultado = bcrypt.compareSync(contrasena, contrasenaUsuario);
         if (resultado) {
+            const user = await Usuarios.findOne({ email },{email:1,nombre:1});
             const token = jsonwebtoken.sign({
                 email,
             }, secretPass);
-            res.json({ access:token });
+            res.json({ access:token, userInfo:user});
         } else {
             res.status(401).json('Unauthorized');
         }
@@ -74,8 +75,8 @@ app.post('/propietarios/', async (req, res) => {
             telefono,
             cedula,
         } = await propietarioValidation.validateAsync(req.body);
-        const propietario = new Propietarios({
-            nombre,
+        const propietario = new PropietariosModel({
+            nombre: nombre.charAt(0).toUpperCase() + nombre.slice(1),
             direccion,
             email,
             telefono,
@@ -94,7 +95,7 @@ app.post('/propietarios/', async (req, res) => {
 
 app.get('/propietarios/:id', async (req, res) => {
     try {
-        const propietario = await Propietarios.findById(req.params.id);
+        const propietario = await PropietariosModel.findById(req.params.id);
         res.json(propietario);
     } catch (error) {
         res.status(404).json(error);
@@ -103,10 +104,7 @@ app.get('/propietarios/:id', async (req, res) => {
 
 app.get('/propietarios/', async (req, res) => {
     try {
-        const propietario = await Propietarios.find({}, {
-            nombre: 1,
-            email: 1,
-        }).exec();
+        const propietario = await PropietariosModel.find().exec()
         res.json(propietario);
     } catch (error) {
         res.status(404).json(error);
@@ -117,7 +115,7 @@ app.put('/propietarios/:id', async (req, res) => {
     const session = await mongoose.startSession();
     session.startTransaction();
     try {
-        await Propietarios.findByIdAndUpdate(req.params.id, req.body);
+        await PropietariosModel.findByIdAndUpdate(req.params.id, req.body);
         await session.commitTransaction();
         session.endSession();
         res.sendStatus(204);
@@ -150,39 +148,38 @@ app.post('/mascotas/', async (req, res) => {
     const session = await mongoose.startSession();
     session.startTransaction();
     try {
-        const propietario = await Propietarios.findById(req.body.propietario).exec();
+        const propietario = await PropietariosModel.findById(req.body.propietario).exec();
         const raza = await RazasModel.findById(req.body.raza).exec();
         const comportamiento = await ComportamientoModel.findById(req.body.comportamiento).exec();
 
         const mascota = new MascotasModel({
-            nombre: req.body.nombre,
+            nombre: req.body.nombre.charAt(0).toUpperCase() + req.body.nombre.slice(1),
             raza,
             fnacimiento: req.body.fnacimiento,
             comportamiento,
             caracFisicas: req.body.caracFisicas,
             fechaDespa: req.body.fechaDespa,
-            propietario,
+            propietario:{id:propietario.id, nombre:propietario.nombre},
         });
         const mascotaCreada = await mascota.save();
 
-        let mascotacreada1 = {}
-        req.body.vacunas.forEach((vacuna) => {
+        req.body.vacunas.forEach((vacuna, index) => {
             VacunasModel.findById(vacuna.id).exec().then(async (vacunaN) => {
                 mascotaCreada.vacunasAplicadas.push({
                     vacuna: vacunaN,
                     fechaAplicacion: vacuna.fechaAplicacion,
                 });
-                mascotacreada1 = await mascotaCreada.save()
-                console.log(mascotacreada1)
-                await Propietarios.find({"mascotas._id" : mascotacreada1._id }).exec().then((mascota)=> {mascota.vacunasAplicadas.push({
-                    vacuna: vacunaN,
-                    fechaAplicacion: vacuna.fechaAplicacion,
-                })});
-                await propietario.save();
-
+                if (index===req.body.vacunas.length-1){
+                    mascotaCreada.save().then(async (mascotacreada1)=>{
+                        console.log(mascotacreada1)
+                        propietario.mascotas.push(mascotacreada1)
+                        await propietario.save()
+                    })
+                }
+                
             });
         });
-       
+        
         await session.commitTransaction();
         session.endSession();
         res.status(201).json('Mascota Agregada a la base de datos');
@@ -197,7 +194,29 @@ app.put('/mascotas/:id', async (req, res) => {
     const session = await mongoose.startSession();
     session.startTransaction();
     try {
-        await MascotasModel.findByIdAndUpdate(req.params.id, req.body).exec();
+        const propietario = await PropietariosModel.findById(req.body.propietario).exec();
+        const raza = await RazasModel.findById(req.body.raza).exec();
+        const comportamiento = await ComportamientoModel.findById(req.body.comportamiento).exec();
+        const data={
+                nombre: req.body.nombre,
+                raza: raza,
+                fnacimiento: req.body.fnacimiento.split('"')[1],
+                comportamiento: comportamiento,
+                caracFisicas: req.body.caracFisicas,
+                fechaDespa: req.body.fechaDespa.split('"')[1],
+                propietario:{
+                    id:propietario._id,
+                    nombre:propietario.nombre
+                },
+
+
+        }
+        // console.log(data)
+        await MascotasModel.findByIdAndUpdate(req.params.id, data).exec();
+        await propietario.mascotas.forEach( async (mascota,index) => { if (mascota._id){
+            propietario.mascotas[index] = await MascotasModel.findById(mascota._id).exec()
+        }})
+        await PropietariosModel.findByIdAndUpdate(propietario._id, propietario).exec()
         await session.commitTransaction();
         session.endSession();
         res.sendStatus(204);

@@ -6,9 +6,13 @@ const usuarioSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    nombre:{
+        type: String,
+        required: true,
+    },
     contrasena: {
         type: String,
-        required: false,
+        required: true,
     },
 },
 { timestamps: true });
@@ -19,6 +23,7 @@ UsuariosModel.findOne({ email: 'jose.francisco.campo.campo@gmail.com' }).exec().
     if (!admin) {
         UsuariosModel.create({
             email: 'jose.francisco.campo.campo@gmail.com',
+            nombre: 'Jose Francisco Campo',
             contrasena: bcrypt.hashSync('Jose1234', 10),
         });
     }

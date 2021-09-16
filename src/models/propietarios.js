@@ -27,5 +27,6 @@ const propietariosSchema = new mongoose.Schema({
     mascotas: [mascotasSchema],
 },
 { timestamps: true });
+const PropietariosModel = mongoose.model('Propietarios', propietariosSchema);
 
-module.exports = mongoose.model('Propietarios', propietariosSchema);
+module.exports = {PropietariosModel,propietariosSchema}

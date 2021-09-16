@@ -31,7 +31,14 @@ const mascotasSchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
-    propietario: { type: mongoose.Schema.Types.ObjectId, ref: 'Propietarios' },
+    propietario:{
+        id:{
+            type: String,
+        }, 
+        nombre:{
+            type: String,
+        }
+    },
 },
 { timestamps: true });
 const MascotasModel = mongoose.model('Mascotas', mascotasSchema)
